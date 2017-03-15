@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="url" content="">
+    <meta name="mobile-agent" content="format=html5;url=http://m.wofang.com/">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="_ICON_" type="image/x-icon">
+    <!-- For iPhone 4 Retina display -->
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="_ICON_">
+    <!-- For iPhone -->
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="_ICON_">
+    <!-- For iPad -->
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="_ICON_">
+    <!-- For iPad Retina display -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="_ICON_">
+
+    <!-- For site css -->
+
+    {load href="/static/css/site.css" /}
+    {load href="/static/css/bootstrap.css" /}
+    {load href="/static/css/font-awesome.css" /}
+    <script type="text/javascript" src="/static/js/jquery.js"></script>
+    <script type="text/javascript" src="/static/js/bootstrap.js"></script>
+    <script type="text/javascript" src="/static/js/wf.js"></script>
+
+    <link rel="stylesheet" href="/static/plugins/fakeloader/css/fakeloader.css">
+    <script src="/static/plugins/fakeloader/js/fakeloader.min.js"></script>
+    <script>
+        var _spinner2 = {
+            timeToHide:1200,
+            bgColor:"#1abc9c",
+            spinner:"spinner2"
+        };
+        $(document).ready(function(){
+            var _error = $('#error_page');
+            if (_error || _error.length == 0){
+                $(".fakeloader").fakeLoader(_spinner2);
+            }
+        });
+    </script>
+
+    <title>{$meta_title ? $meta_title.' - ' : ''}_TITLE_</title>
+
+    <style>
+        body{
+            background:rgba(254,254,254,0.8);
+        }
+    </style>
+</head>
+<body>
+
+<!--<header class="header" style="background-color: rgba(10,10,10,0.8);color:#FFFFFF;">-->
+<!--</header>-->
+
+</body>
+</html>

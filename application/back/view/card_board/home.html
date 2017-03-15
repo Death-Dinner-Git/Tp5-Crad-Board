@@ -1,0 +1,142 @@
+<?php
+
+
+?>
+
+<style type="text/css">
+    #WF_Login a{
+        color: #000;
+        text-decoration: none;
+    }
+    #WF_Login a:hover{
+        opacity: 0.628;
+    }
+    #content-container{
+        background: #f4f4f4;
+    }
+    #content-body{
+        background: #55d0d0;
+    }
+    *{margin:0;padding:0;}
+    li{list-style:none outside none;}
+    #content-body .box{
+        width:1000px;margin:10px auto;height:800px;padding: 2px;
+    }
+    #content-body dl{
+        width:200px;
+        margin:0 auto 20px;
+        height:100px;
+        background: #d4d4d4;
+        border: 1px solid #4d4d4d;
+    }
+    #content-body  dl > .item{position:relative; margin-left:20px; color: #000;font-size: 14px;}
+    #content-body  dl > .checkbox{position: absolute;left: 5px;}
+</style>
+<div class="content-home">
+
+    <section id="content-container" style="position:fixed;top: 0px;left: 0px;right: 0px;bottom: 0px;">
+        <div id="content-body" style="margin:auto;width: 1024px;min-height: 900px;">
+
+            <!--login box begin-->
+            <div class="login-title">
+                <h2 style="text-align:center; color: #000; margin-bottom: 0;padding-top: 15px;"> <?php echo $meta_title; ?></h2>
+            </div>
+
+            <div class="box" id="card-board">
+                {volist name="dataProvider" id="model"}
+                <dl><input type="checkbox" class="checkbox" /><span class="item">{$model.id}：{$model.content}</span></dl>
+                {/volist}
+            </div>
+
+            <p style="display: flex;"><label class="btn btn-primary" data-toggle="modal"  href="#form-messages" style="margin: auto;">添加</label></p>
+
+            <input type="hidden" id="new-messages" />
+
+        </div>
+    </section>
+
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="form-messages" tabindex="-1" role="dialog" aria-labelledby="form-sortLabel"
+     aria-hidden="true" style="display: none;">
+    <div class="modal-dialog animated fadeInDown" style="width:62.8%;box-shadow:0 0 5px #1ec7e6">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="warning-sortLabel" style="text-align: center">留言</h4>
+            </div>
+            <div class="modal-body">
+                <div style="display: flex;padding: 50px;">
+                    <input type="hidden" id="card-uid" value="<?php echo '1'; ?>" />
+                    <textarea id="card-messages" class="form-control" name="messages" maxlength="50" rows="8" style="resize: none; width:600px;height: 400px;border: 1px solid #d4d4d4;margin: auto;overflow-y: hidden;" placeholder="-- 留言-- "></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary save">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{load href="/static/plugins/modal/zeroModal.css" /}
+{load href="/static/plugins/modal/zeroModal.js" /}
+{load href="/static/plugins/drag/js/drag.js" /}
+
+<script>
+    initDrag();
+
+    $('#form-messages .save').on('click',function () {
+        $('#form-messages').modal('hide');
+        createCardBoard();
+    });
+    function initDrag(){
+        $('#content-body  dl').each(function(){
+            $(this).dragging({
+                move : 'both',
+                randomPosition : true
+            });
+        });
+    }
+    function createCardBoard() {
+        var _messages = $('#form-messages #card-messages'), _uid = $('#form-messages #card-uid').val(), _url = window.location.pathname;
+        $.ajax({
+            type: "POST",
+            url: _url,
+            data: {messages:_messages.val(),uid:_uid},   //参数
+            beforeSend: function () {
+                $('.cover-loading').fadeIn(200);
+            },
+            success: function (data) {
+//                 console.log(data);
+                $('.cover-loading').fadeOut(200);
+                if (data.code == '1') {
+                    var _element = '<dl style="position: absolute; cursor: move; top: 400px; left: 400px;"><input type="checkbox" class="checkbox" /><span class="item">'+_uid+'：'+_messages.val()+'</span></dl>';
+                    $('#card-board').append(_element);
+                    //清空留言
+                    _messages.val('');
+                    initDrag();
+                    zeroModal.success({content: data.msg, overlayClose: true});
+                }else if (data.msg) {
+                    zeroModal.alert({content: data.msg, overlayClose: true});
+                }else {
+                    zeroModal.alert({content: '留言出错', overlayClose: true});
+                }
+            },
+            error: function (data) {
+                $('.cover-loading').fadeOut(200);
+                zeroModal.alert({ content: '留言出错', overlayClose: true});
+//                console.log(data);
+            }
+        });
+    }
+</script>
+<script type="text/javascript">
+    window.onload = function () {
+        $('.fa').html('');
+    }
+</script>
+

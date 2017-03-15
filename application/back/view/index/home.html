@@ -1,0 +1,142 @@
+<?php
+
+
+?>
+
+<style type="text/css">
+    #WF_Login a{
+        color: #000;
+        text-decoration: none;
+    }
+    #WF_Login a:hover{
+        opacity: 0.628;
+    }
+    #content-container{
+        background: #f4f4f4;
+    }
+    #content-body{
+        background: #55d0d0;
+    }
+    #WF_Login .field{
+        display: flex;
+        width: 770px;
+        height: 30px;
+        padding: 30px !important;
+        margin: auto;
+    }
+    #WF_Login .field-item{
+        position: relative;
+        margin: auto;
+    }
+    #WF_Login .field-item label{
+        top:5px;
+        left: 10px;
+        position: absolute;
+        background: #f4f4f4;
+    }
+    #WF_Login .login-text{
+        width: 704px;
+        height: 30px;
+        margin: auto;
+        padding-left: 30px;
+        border: 0px;
+        vertical-align: middle;
+        font-size: 18px;
+        line-height: 20px;
+        background: #f4f4f4;
+    }
+    #WF_Login #WF_Submit_1{
+        width: 704px;
+        height: 30px;
+        padding: 1px 15px;
+        font-size: 20px;
+        text-align: center;
+        background: #f4f4f4;
+    }
+    *{margin:0;padding:0;}
+    li{list-style:none outside none;}
+    #content-body .box{
+        width:800px;margin:0 auto 20px;height:500px;
+    }
+    #content-body dl{
+        width:100px;
+        margin:0 auto 20px;
+        height:100px;
+        background: #d4d4d4;
+        border: 1px solid #4d4d4d;
+    }
+    #content-body  dl > .item{color: #000;font-size: 30px;}
+</style>
+<div class="content-home">
+
+    <section id="content-container" style="position:fixed;top: 0px;left: 0px;right: 0px;bottom: 0px;">
+        <div id="content-body" style="margin:auto;width: 800px;min-height: 600px;">
+
+            <!--login box begin-->
+            <div class="login-title">
+                <h2 style="text-align:center; color: #000; margin-bottom: 0;padding-top: 15px;"> <?php echo $meta_title; ?></h2>
+            </div>
+
+            <div class="box">
+                <dl><span class="item"><?php echo rand(1000,9999);?></span></dl>
+                <dl><span class="item"><?php echo rand(1000,9999);?></span></dl>
+                <dl><span class="item"><?php echo rand(1000,9999);?></span></dl>
+                <dl><span class="item"><?php echo rand(1000,9999);?></span></dl>
+                <dl><span class="item"><?php echo rand(1000,9999);?></span></dl>
+            </div>
+
+            <form id="WF_Login" action="/back/Index/index.html" method="post">
+
+                {:token()}
+
+                <div id="WF_Message" style="display:none;" class="login-msg error">
+                    <i class="iconfont"></i>
+                    <p class="error"></p>
+                </div>
+
+                <!--<div class="field username-field">-->
+                    <!--<div class="field-item">-->
+                        <!--<label for="WF_username_1"> <i class="fa fa-user" title="会员名称"></i></label>-->
+                        <!--<span id="WF_StandardUsername">-->
+                            <!--<input type="text" name="WF_username" id="WF_username_1" class="login-text WF_Username" value="" maxlength="32" tabindex="1" placeholder="会员名称 | 邮箱 | 手机号" aria-label="会员名称 | 邮箱 | 手机号">-->
+                        <!--</span>-->
+                        <!--<span class="field-success" style="display: none;">-->
+                            <!--<i class="fa fa-success"></i>-->
+                        <!--</span>-->
+                    <!--</div>-->
+                <!--</div>-->
+
+            </form>
+
+        </div>
+    </section>
+
+</div>
+{load href="/static/plugins/modal/zeroModal.css" /}
+{load href="/static/plugins/modal/zeroModal.js" /}
+{load href="/static/plugins/drag/js/drag.js" /}
+
+<script>
+    $(function(){
+        $('#content-body  dl').each(function(){
+            $(this).dragging({
+                move : 'both',
+                randomPosition : true
+            });
+        });
+    });
+//    zeroModal.show({
+//        title: 'hello world',
+//        url: 'http://www.baidu.com',
+//        width: '62.8%',
+//        height: '62.8%',
+//        cancel: true,
+//        overlayClose: true,
+//    });
+</script>
+<script type="text/javascript">
+    window.onload = function () {
+        $('.fa').html('');
+    }
+</script>
+

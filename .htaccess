@@ -1,0 +1,18 @@
+﻿<IfModule rewrite_module>
+
+Options +FollowSymLinks
+
+RewriteEngine on
+Rewritebase /
+
+#绑定 www.app.cc 到 public 子目录
+RewriteCond %{HTTP_HOST} ^www.app.cc$ [NC]
+RewriteCond %{REQUEST_URI} ^/wf/
+RewriteRule ^(.*)$ /public/$1 [L]
+
+# 不是文件则跳到index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule .*$ /public/index.php [R=302,L]
+
+#可以绑定多个 只需重复上三行代码并更改一下域名、目录名 就好了
+</IfModule>
